@@ -1,0 +1,9 @@
+links:
+https://www.learnrazorpages.com/razor-pages/model-binding <-- relook at this
+
+
+https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqldatareader?view=dotnet-plat-ext-8.0
+https://www.codeproject.com/Questions/1170090/How-can-I-access-to-class-in-cshtml
+
+links that helped me:
+https://stackoverflow.com/questions/29733221/the-type-or-namespace-name-sqlconnection-could-not-be-found
