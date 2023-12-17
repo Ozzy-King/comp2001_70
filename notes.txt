@@ -7,3 +7,5 @@ https://www.codeproject.com/Questions/1170090/How-can-I-access-to-class-in-cshtm
 
 links that helped me:
 https://stackoverflow.com/questions/29733221/the-type-or-namespace-name-sqlconnection-could-not-be-found
+https://www.pragimtech.com/blog/sql-optimization/primary-key-on-two-columns-sql-server/ (create dual colum primary key (compisite key))
+https://stackoverflow.com/questions/8930151/how-to-handle-escape-both-single-and-double-quotes-in-an-sql-update-statement (terminating quotes)
