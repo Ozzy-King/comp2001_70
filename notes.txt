@@ -9,3 +9,4 @@ links that helped me:
 https://stackoverflow.com/questions/29733221/the-type-or-namespace-name-sqlconnection-could-not-be-found
 https://www.pragimtech.com/blog/sql-optimization/primary-key-on-two-columns-sql-server/ (create dual colum primary key (compisite key))
 https://stackoverflow.com/questions/8930151/how-to-handle-escape-both-single-and-double-quotes-in-an-sql-update-statement (terminating quotes)
+https://www.connectionstrings.com/sql-server/ /90conntion string for connecting
