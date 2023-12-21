@@ -10,3 +10,4 @@ https://stackoverflow.com/questions/29733221/the-type-or-namespace-name-sqlconne
 https://www.pragimtech.com/blog/sql-optimization/primary-key-on-two-columns-sql-server/ (create dual colum primary key (compisite key))
 https://stackoverflow.com/questions/8930151/how-to-handle-escape-both-single-and-double-quotes-in-an-sql-update-statement (terminating quotes)
 https://www.connectionstrings.com/sql-server/ /90conntion string for connecting
+https://stackoverflow.com/questions/681653/can-you-get-the-column-names-from-a-sqldatareader -used for the database class

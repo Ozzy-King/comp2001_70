@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.JSInterop;
 using Newtonsoft.Json.Linq;
 using System.Data.SqlClient;
 
@@ -8,6 +9,21 @@ namespace WebApp2
 
     public class DatabaseConnectionClass
     {
+        public enum errorCodes { 
+            success = 0,
+            tooLong = 1,
+            tooShort,
+            missingEmail,
+            missingPassword,
+            missingFirstName,
+            missingLastName,
+            invalidValue,
+            invalidDate,
+            accountExistsButWrongPassword,
+            accountExists,
+            incorrectEmailOrPassword
+        }
+
         SqlConnection? _databaseConnection;
         public bool connect(string server, string database, string username, string password) {
             string connectionString = "Server="+server+";Database="+database+";User Id="+username+";Password="+password+";";
@@ -54,6 +70,22 @@ namespace WebApp2
                 output += "}";
             }
             return output + "]" ;
+        }
+
+        public string sanatizer(string command) {
+            string output = command;
+            //need to sanatize \ first or it will try to sanatize the newly added backslashes
+            output = output.Replace("\\", "\\\\"); 
+            output = output.Replace("'", "''");
+            output = output.Replace("\"", "\\\"");
+            output = output.Replace("--", "\\-\\-");
+            output = output.Replace("%","");
+            output = output.Replace("_","");
+            return output;
+        }
+
+        public static string returnErrorStringBuilder(string error, errorCodes errorID) {
+            return "[{\"info\":\"" + error + "\", \"errorcode\": "+ ((int)errorID).ToString()+"}]";
         }
 
         ~DatabaseConnectionClass() {
