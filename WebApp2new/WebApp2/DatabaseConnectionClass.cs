@@ -28,12 +28,22 @@ namespace WebApp2
         public bool connect(string server, string database, string username, string password) {
             string connectionString = "Server="+server+";Database="+database+";User Id="+username+";Password="+password+";";
             _databaseConnection = new SqlConnection(connectionString);
-            _databaseConnection.Open();
+            try {
+                _databaseConnection.Open();
+            }
+            catch { 
+                return true; 
+            }
             return false;
         }
         public bool connect(string connectionString) {
             _databaseConnection = new SqlConnection(connectionString);
-            _databaseConnection.Open();
+            try {
+                _databaseConnection.Open();
+            }
+            catch {
+                return true;
+            }
             return false;
         }
 
