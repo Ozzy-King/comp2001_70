@@ -106,6 +106,10 @@ namespace WebApp2.Controllers
             string email = databaseConnection.sanatizer(details["email"].ToString());
             string password = databaseConnection.sanatizer(details["password"].ToString());
 
+            if(!authenticator.authenticate(email, password)){
+                DatabaseConnectionClass.returnErrorStringBuilder("account could not be authenticated", DatabaseConnectionClass.errorCodes.invalidUser);
+            }
+
             string connectionString = "Server=dist-6-505.uopnet.plymouth.ac.uk;Database=COMP2001_OClark;User Id=OClark;Password=GgyC627+;";
             string commandString = "exec cw2.PRO_deleteUser @email='" + email + "', @password='" + password + "'";
 
@@ -113,10 +117,11 @@ namespace WebApp2.Controllers
             return databaseConnection.executeCommand(commandString);
         }
 
-        //HAVE NOT TESTED
         [HttpPut]//email and password are mandatory
         public string updateUser([FromBody] JsonObject details) {
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
+
+            //get mandatory feilds and do some check where needed
             if (details["email"] == null) {
                 return "error needs email";
             }
@@ -132,6 +137,11 @@ namespace WebApp2.Controllers
             }
             string email = databaseConnection.sanatizer(details["email"].ToString());
             string password = databaseConnection.sanatizer(details["password"].ToString());
+
+            //check the user is valid before proceding
+            if (!authenticator.authenticate(email, password)) {
+                DatabaseConnectionClass.returnErrorStringBuilder("account could not be authenticated", DatabaseConnectionClass.errorCodes.invalidUser);
+            }
 
             //setup and get all inputting values
             string firstname = "NULL";
@@ -268,6 +278,5 @@ namespace WebApp2.Controllers
             databaseConnection.connect(connectionString);
             return databaseConnection.executeCommand(commandString);
         }
-
     }
 }
