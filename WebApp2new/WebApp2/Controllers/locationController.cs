@@ -12,6 +12,11 @@ namespace WebApp2.Controllers
         [HttpGet(Name = "getAllLocation")]
         public string getAllLocation()
         {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             string connectionString = "Server=dist-6-505.uopnet.plymouth.ac.uk;Database=COMP2001_OClark;User Id=OClark;Password=GgyC627+;";
             string commandString = "SELECT * FROM cw2.location";
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
@@ -23,6 +28,11 @@ namespace WebApp2.Controllers
         [HttpGet(Name = "getLocationByID")]
         public string getLocationByID(int id)
         {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             string connectionString = "Server=dist-6-505.uopnet.plymouth.ac.uk;Database=COMP2001_OClark;User Id=OClark;Password=GgyC627+;";
             string commandString = "SELECT * FROM cw2.location where ID = " + id.ToString();
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
@@ -33,6 +43,11 @@ namespace WebApp2.Controllers
         [HttpGet(Name = "getLocationByName")]
         public string getLocationByName(string name)
         {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (name.Length > 200)
             {

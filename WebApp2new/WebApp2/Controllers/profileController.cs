@@ -15,6 +15,10 @@ namespace WebApp2.Controllers
         // GET: proflie
         [HttpGet(Name = "GetUserByEmail")]
         public string getUserByEmail(String email) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)){
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (email.Length > 60) {
                 return DatabaseConnectionClass.returnErrorStringBuilder("email too long", DatabaseConnectionClass.errorCodes.tooLong);
@@ -30,6 +34,11 @@ namespace WebApp2.Controllers
         [HttpGet]
         public string getUserByName(String name)
         {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (name.Length > 100)
             {
@@ -46,6 +55,10 @@ namespace WebApp2.Controllers
 
         [HttpPost(Name = "CreateUser")] //json should contain email, firstname, lastname, password
         public string createUser([FromBody]JsonObject details) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (details["email"] == null) {
                 return DatabaseConnectionClass.returnErrorStringBuilder("error needs email", DatabaseConnectionClass.errorCodes.missingEmail);
@@ -89,6 +102,10 @@ namespace WebApp2.Controllers
 
         [HttpDelete]
         public string deleteUser([FromBody] JsonObject details) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (details["email"] == null) {
                 return DatabaseConnectionClass.returnErrorStringBuilder("error needs email", DatabaseConnectionClass.errorCodes.missingEmail);
@@ -119,6 +136,11 @@ namespace WebApp2.Controllers
 
         [HttpPut]//email and password are mandatory
         public string updateUser([FromBody] JsonObject details) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
 
             //get mandatory feilds and do some check where needed

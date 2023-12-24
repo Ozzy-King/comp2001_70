@@ -22,7 +22,8 @@ namespace WebApp2
             accountExistsButWrongPassword,
             accountExists,
             incorrectEmailOrPassword,
-            invalidUser
+            invalidUser,
+            overRequestLimit
         }
 
         SqlConnection? _databaseConnection;

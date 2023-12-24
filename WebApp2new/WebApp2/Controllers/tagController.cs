@@ -9,6 +9,10 @@ namespace WebApp2.Controllers
         //=================----tags----====================
         [HttpGet]
         public string getAllTag() {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
             string connectionString = "Server=dist-6-505.uopnet.plymouth.ac.uk;Database=COMP2001_OClark;User Id=OClark;Password=GgyC627+;";
             string commandString = "SELECT * FROM cw2.activityTag";
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
@@ -18,6 +22,10 @@ namespace WebApp2.Controllers
 
         [HttpGet]
         public string getTagByID(int id) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
             string connectionString = "Server=dist-6-505.uopnet.plymouth.ac.uk;Database=COMP2001_OClark;User Id=OClark;Password=GgyC627+;";
             string commandString = "SELECT * FROM cw2.activityTag where ID = " + id.ToString();
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
@@ -27,6 +35,11 @@ namespace WebApp2.Controllers
 
         [HttpGet]
         public string getTagByName(String name) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (name.Length > 20)
             {

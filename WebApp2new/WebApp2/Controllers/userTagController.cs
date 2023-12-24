@@ -9,6 +9,11 @@ namespace WebApp2.Controllers
     {
         [HttpGet]
         public string getUserTagsByUser(string email) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (email.Length > 60)
             {
@@ -25,6 +30,11 @@ namespace WebApp2.Controllers
         [HttpGet]
         public string getUserTagsBytag(string tag)
         {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (tag.Length > 60)
             {
@@ -41,6 +51,11 @@ namespace WebApp2.Controllers
 
         [HttpPost]
         public string createUserTag([FromBody] JsonObject details) {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (details["email"] == null) {
                 return DatabaseConnectionClass.returnErrorStringBuilder("error needs email", DatabaseConnectionClass.errorCodes.missingEmail);
@@ -82,6 +97,11 @@ namespace WebApp2.Controllers
         [HttpDelete]
         public string deleteUserTag([FromBody] JsonObject details)
         {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip)) {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
             DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
             if (details["email"] == null){
                 return DatabaseConnectionClass.returnErrorStringBuilder("error needs email", DatabaseConnectionClass.errorCodes.missingEmail);
