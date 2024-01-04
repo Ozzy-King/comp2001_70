@@ -134,6 +134,55 @@ namespace WebApp2.Controllers
             return databaseConnection.executeCommand(commandString);
         }
 
+        [HttpDelete]
+        public string deleteUserAdmin([FromBody] JsonObject details)
+        {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip))
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+            DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
+            if (details["email"] == null)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("error needs email", DatabaseConnectionClass.errorCodes.missingEmail);
+            }
+            else if (details["email"].ToString().Length > 60)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("email too long", DatabaseConnectionClass.errorCodes.tooLong);
+            }
+            if (details["adminemail"] == null)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("error needs admin email", DatabaseConnectionClass.errorCodes.missingEmail);
+            }
+            else if (details["adminemail"].ToString().Length > 60)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("email too long", DatabaseConnectionClass.errorCodes.tooLong);
+            }
+            if (details["adminpassword"] == null)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("error needs admin password", DatabaseConnectionClass.errorCodes.missingPassword);
+            }
+            else if (details["adminpassword"].ToString().Length > 30)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("password too long", DatabaseConnectionClass.errorCodes.tooLong);
+            }
+            string email = databaseConnection.sanatizer(details["email"].ToString());
+            string adminemail = databaseConnection.sanatizer(details["adminemail"].ToString());
+            string adminpassword = databaseConnection.sanatizer(details["adminpassword"].ToString());
+
+            if (!authenticator.authenticate(adminemail, adminpassword))
+            {
+                DatabaseConnectionClass.returnErrorStringBuilder("account could not be authenticated", DatabaseConnectionClass.errorCodes.invalidUser);
+            }
+
+            string connectionString = "Server=dist-6-505.uopnet.plymouth.ac.uk;Database=COMP2001_OClark;User Id=OClark;Password=GgyC627+;";
+            string commandString = "exec cw2.PRO_deleteUserAdmin @useremail='"+email+"', @email='" + adminemail + "', @password='" + adminpassword + "'";
+
+            databaseConnection.connect(connectionString);
+            return databaseConnection.executeCommand(commandString);
+        }
+
         [HttpPut]//email and password are mandatory
         public string updateUser([FromBody] JsonObject details) {
             string ip = Request.Host.Host.ToString();

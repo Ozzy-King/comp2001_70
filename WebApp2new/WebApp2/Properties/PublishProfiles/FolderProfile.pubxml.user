@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\kaleche\Documents\university things\year2\comp2001_70\WebApp2new\WebApp2\bin\Release\net6.0\publish\</_PublishTargetUrl>
-    <History>True|2023-12-24T23:05:23.3652283Z;True|2023-12-24T22:49:02.6291011+00:00;</History>
+    <History>True|2024-01-04T19:46:02.4749030Z;True|2023-12-24T23:05:23.3652283+00:00;True|2023-12-24T22:49:02.6291011+00:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
