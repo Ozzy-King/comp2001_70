@@ -14,8 +14,10 @@ this is my repository for the 70% on the 2001 course work. it consists of an API
 
 #### POST Requests
 1. /API/profile/createUser
+2. /API/profile/getProfileByEmail
 ##### descriptions
 1. supplied with the correct information in the Json body, it will create a account with that data.
+2. returns all profile infomation for that user(this includes private infomation so authentication is required)
 ##### request body schema
 1. 
 ``` json
@@ -24,6 +26,13 @@ this is my repository for the 70% on the 2001 course work. it consists of an API
         "password":"" ,
         "firstname":"",
         "lastname":""
+    }
+``` 
+2. 
+``` json
+    {
+        "email":"",
+        "password":""
     }
 ``` 
 

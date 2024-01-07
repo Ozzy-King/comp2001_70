@@ -31,6 +31,49 @@ namespace WebApp2.Controllers
             databaseConnection.connect(connectionString);
             return databaseConnection.executeCommand(commandString);
         }
+
+        [HttpPost(Name = "GetProfileByEmail")]
+        public string getProfileByEmail([FromBody] JsonObject details)
+        {
+            string ip = Request.Host.Host.ToString();
+            if (ipLogger.check(ip))
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("over minute limit", DatabaseConnectionClass.errorCodes.overRequestLimit);
+            }
+
+            DatabaseConnectionClass databaseConnection = new DatabaseConnectionClass();
+            if (details["email"] == null)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("error needs email", DatabaseConnectionClass.errorCodes.missingEmail);
+            }
+            else if (details["email"].ToString().Length > 60)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("email too long", DatabaseConnectionClass.errorCodes.tooLong);
+            }
+
+            if (details["password"] == null)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("error needs password", DatabaseConnectionClass.errorCodes.missingPassword);
+            }
+            else if (details["password"].ToString().Length > 30)
+            {
+                return DatabaseConnectionClass.returnErrorStringBuilder("password too long", DatabaseConnectionClass.errorCodes.tooLong);
+            }
+            string email = databaseConnection.sanatizer(details["email"].ToString());
+            string password = databaseConnection.sanatizer(details["password"].ToString());
+
+            if (!authenticator.authenticate(email, password))
+            {
+                DatabaseConnectionClass.returnErrorStringBuilder("account could not be authenticated", DatabaseConnectionClass.errorCodes.invalidUser);
+            }
+
+            string connectionString = "Server=dist-6-505.uopnet.plymouth.ac.uk;Database=COMP2001_OClark;User Id=OClark;Password=GgyC627+;";
+            string commandString = "SELECT * FROM cw2.profile where email = '" + email + "'";
+
+            databaseConnection.connect(connectionString);
+            return databaseConnection.executeCommand(commandString);
+        }
+
         [HttpGet]
         public string getUserByName(String name)
         {

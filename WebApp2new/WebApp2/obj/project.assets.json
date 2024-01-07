@@ -733,11 +733,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kaleche\\Documents\\university things\\year2\\comp2001_70\\WebApp2new\\WebApp2\\WebApp2.csproj",
+      "projectUniqueName": "C:\\Users\\kaleche\\Documents\\university\\year2\\comp2001_70\\WebApp2new\\WebApp2\\WebApp2.csproj",
       "projectName": "WebApp2",
-      "projectPath": "C:\\Users\\kaleche\\Documents\\university things\\year2\\comp2001_70\\WebApp2new\\WebApp2\\WebApp2.csproj",
+      "projectPath": "C:\\Users\\kaleche\\Documents\\university\\year2\\comp2001_70\\WebApp2new\\WebApp2\\WebApp2.csproj",
       "packagesPath": "C:\\Users\\kaleche\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kaleche\\Documents\\university things\\year2\\comp2001_70\\WebApp2new\\WebApp2\\obj\\",
+      "outputPath": "C:\\Users\\kaleche\\Documents\\university\\year2\\comp2001_70\\WebApp2new\\WebApp2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
